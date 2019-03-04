@@ -26,11 +26,14 @@ include $(DEVKITARM)/3ds_rules
 #     - icon.png
 #     - <libctru folder>/default_icon.png
 #---------------------------------------------------------------------------------
-TARGET		:=	$(notdir $(CURDIR))
+TARGET		:=	TheGreatDot
 BUILD		:=	build
 SOURCES		:=	source
 DATA		:=	data
-INCLUDES	:=	include
+INCLUDES	:=	includes
+APP_TITLE       :=      The Great Dot
+APP_DESCRIPTIONS:=	3ds Homebrew Learning Project
+APP_AUTHOR      :=      NEW777
 
 #---------------------------------------------------------------------------------
 # options for code generation
