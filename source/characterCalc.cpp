@@ -73,26 +73,13 @@ int trsltLowY (int lowY)
     return topY;
 }
 
-int calcBarrelX4 (float angle, int width, int length, int x)
+int calcBarrelX1 (float angle, int width, int x)
 {
-    s16 xDist;
-    s16 barrelX4;
+    s16 barrelX1;
     float endAngle;
-    xDist = cos (angle) * length;
     endAngle = (PI / 2 - angle);
-    barrelX4 = xDist + x + (cos (endAngle) * (width / 2)); 
-    return barrelX4;
-}
-
-int calcBarrelY4 (float angle, int width, int length, int y)
-{
-    s16 yDist;
-    s16 barrelY4;
-    float endAngle;
-    yDist = sin(angle) * length;
-    endAngle = (PI / 2 - angle);
-    barrelY4 = y - yDist + (sin(endAngle) * (width / 2));
-    return barrelY4;
+    barrelX1 = x - (cos(endAngle) * (width / 2));
+    return barrelX1;
 }
 
 int calcBarrelX2 (float angle, int width, int length, int x)
@@ -105,6 +92,36 @@ int calcBarrelX2 (float angle, int width, int length, int x)
     barrelX4 = xDist + x - (cos(endAngle) * (width / 2)); 
     return barrelX4;
 }
+
+int calcBarrelX3 (float angle, int width, int x)
+{
+    s16 barrelX3;
+    float endAngle;
+    endAngle = (PI / 2 - angle);
+    barrelX3 = x + (cos(endAngle) * (width / 2));
+    return barrelX3;
+}
+
+int calcBarrelX4 (float angle, int width, int length, int x)
+{
+    s16 xDist;
+    s16 barrelX4;
+    float endAngle;
+    xDist = cos (angle) * length;
+    endAngle = (PI / 2 - angle);
+    barrelX4 = xDist + x + (cos (endAngle) * (width / 2)); 
+    return barrelX4;
+}
+
+int calcBarrelY1 (float angle, int width, int y)
+{
+    s16 barrelY1;
+    float endAngle;
+    endAngle = (PI / 2 - angle);
+    barrelY1 = y - (sin(endAngle) * (width / 2));
+    return barrelY1;
+}
+
 int calcBarrelY2 (float angle, int width, int length, int y)
 {
     s16 yDist;
@@ -116,15 +133,6 @@ int calcBarrelY2 (float angle, int width, int length, int y)
     return barrelY2;
 }
 
-int calcBarrelX3 (float angle, int width, int x)
-{
-    s16 barrelX3;
-    float endAngle;
-    endAngle = (PI / 2 - angle);
-    barrelX3 = x + (cos(endAngle) * (width / 2));
-    return barrelX3;
-}
-
 int calcBarrelY3 (float angle, int width, int y)
 {
     s16 barrelY3;
@@ -133,20 +141,14 @@ int calcBarrelY3 (float angle, int width, int y)
     barrelY3 = y + (sin(endAngle) * (width / 2));
     return barrelY3;
 }
-    
-int calcBarrelX1 (float angle, int width, int x)
+
+int calcBarrelY4 (float angle, int width, int length, int y)
 {
-    s16 barrelX1;
+    s16 yDist;
+    s16 barrelY4;
     float endAngle;
+    yDist = sin(angle) * length;
     endAngle = (PI / 2 - angle);
-    barrelX1 = x - (cos(endAngle) * (width / 2));
-    return barrelX1;
-}
-int calcBarrelY1 (float angle, int width, int y)
-{
-    s16 barrelY1;
-    float endAngle;
-    endAngle = (PI / 2 - angle);
-    barrelY1 = y - (sin(endAngle) * (width / 2));
-    return barrelY1;
+    barrelY4 = y - yDist + (sin(endAngle) * (width / 2));
+    return barrelY4;
 }

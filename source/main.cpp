@@ -25,7 +25,8 @@ int main(int argc, char *argv[])
     C3D_RenderTarget* top = C2D_CreateScreenTarget(GFX_TOP, GFX_LEFT);
     
     // Initialize Colors
-    u32 red = C2D_Color32(255, 0, 0, 255);
+    u32 halfRed = C2D_Color32(255, 0, 0, 50);
+    u32 red = C2D_Color32(255, 0, 0, 100);
     u32 clrClear = C2D_Color32(255, 255, 255, 255);
     u32 gray = C2D_Color32(80,80,80,255);
     
@@ -54,6 +55,8 @@ int main(int argc, char *argv[])
         s32 centerY;
         s16 diffX;
         s16 diffY;
+        s16 stylusX;
+        s16 stylusY;
         float angle;
     };
     class target {
@@ -90,6 +93,8 @@ int main(int argc, char *argv[])
     lowscrn.diffX = 0;
     lowscrn.diffY = 0;
     lowscrn.angle = 90;
+    lowscrn.stylusX = 0;
+    lowscrn.stylusY = 0;
     
     target.x = 0;
     target.y = 0;
@@ -110,23 +115,33 @@ int main(int argc, char *argv[])
         if (kDown & KEY_START) {
             break;
         }
-        // Update Variables
-
+        
+        //Set Stylus Coordinates
+        if (touch.px > 0)
+        {
+            lowscrn.stylusX = touch.px;
+        } 
+        if ( touch.py > 0)
+        {
+            lowscrn.stylusY = touch.py;
+        }
         
         // Calculate User Aim Box
-        target.x = trsltLowX(touch.px);
-        target.y = trsltLowY(touch.py);
+        target.x = trsltLowX(lowscrn.stylusX);
+        target.y = trsltLowY(lowscrn.stylusY);
         
         // Calculate Angle of TouchScreen Stylus from Center in Degrees
         lowscrn.diffY = getTouchYDiff(target.y, player.yCoord);
         lowscrn.diffX = getTouchXDiff(target.x, player.xCoord);
         lowscrn.angle = -atan2(lowscrn.diffY, lowscrn.diffX);
 
-        // Calculate User Tank Body Coordinates
+        // Calculate User Tank Coordinates
         player.xSpeed = getXSpeed(pos.dx, player.xSpeed);
         player.ySpeed = getYSpeed(pos.dy, player.ySpeed);
+        
         player.xCoord = getXCoord(player.xSpeed, player.xCoord);
-        player.yCoord = getYCoord(player.ySpeed, player.yCoord);  
+        player.yCoord = getYCoord(player.ySpeed, player.yCoord);
+        
         player.barrelX1 = calcBarrelX1(lowscrn.angle, player.barrelWidth, player.xCoord);
         player.barrelX2 = calcBarrelX2(lowscrn.angle, player.barrelWidth, player.barrelLength, player.xCoord);
         player.barrelX3 = calcBarrelX3(lowscrn.angle, player.barrelWidth, player.xCoord);
@@ -177,7 +192,7 @@ int main(int argc, char *argv[])
             0);
         C2D_DrawRectSolid(
             target.x - 10, target.y - 10, 0, 20, 20,
-            red);
+            halfRed);
         C2D_DrawEllipseSolid(player.xCoord - player.bDiameter / 2, player.yCoord - player.bDiameter / 2, 0, player.bDiameter, player.bDiameter, red);
         
         // End the Frame
